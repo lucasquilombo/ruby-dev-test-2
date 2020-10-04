@@ -6,5 +6,11 @@ class CreateAlbumPlayers < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    Album.transaction do
+      Album.find_each do |album|
+        AlbumPlayer.create(album: album, player: album.player)
+      end
+    end
   end
 end
